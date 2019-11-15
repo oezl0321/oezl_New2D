@@ -1722,7 +1722,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &284045879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1735,10 +1735,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a361713aacb304b42a79fda3e651f509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
+  speed: 6.8
   jump: 300
   isGround: 0
   _name: Oezl
+  r2d: {fileID: 284045878}
+  ani: {fileID: 284045874}
 --- !u!1 &549243595
 GameObject:
   m_ObjectHideFlags: 0
