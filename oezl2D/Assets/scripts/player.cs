@@ -19,6 +19,9 @@ public class player : MonoBehaviour
     [Header("2D原件")]
     public Rigidbody2D r2d;
     public Animator ani;
+    [Header("音效區域")]
+    public AudioSource aud;
+    public AudioClip soundDiamond;
     #endregion
     //定義方法
     //語法:
@@ -30,6 +33,15 @@ public class player : MonoBehaviour
         float h =Input.GetAxisRaw("Horizontal");//輸入取得軸向("水平")左右 AD
         r2d.AddForce(new Vector2(speed * h, 0));
         ani.SetBool("衝天跑", h != 0);  //動畫原件.設定布林值
+
+
+
+        //如果按下A角度 = (0, 180 ,0)
+        //如果按下D角度 = (0, 0, 0)
+        // teansform.eulerAngles 角色變形元件.世界角度
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) transform.eulerAngles = new Vector3(0, 180, 0);        
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) transform.eulerAngles = new Vector3(0, 0, 0);
+        
     }
     private void Jump()
     {
@@ -40,6 +52,7 @@ public class player : MonoBehaviour
             isGround = false;
             //鋼體.推力(往上)
             r2d.AddForce(new Vector2(0, jump));
+            ani.SetTrigger("衝天跑");  //動畫原件.設定觸發器("參數")
         }
 
     }
