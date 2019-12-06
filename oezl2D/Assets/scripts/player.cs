@@ -1,6 +1,6 @@
 ﻿
 using UnityEngine;
-
+using UnityEngine.UI; //引用 介面 API
 public class player : MonoBehaviour
 {
     #region 欄位區域
@@ -22,6 +22,12 @@ public class player : MonoBehaviour
     [Header("音效區域")]
     public AudioSource aud;
     public AudioClip soundDiamond;
+    [Header("鑽石區域")]
+    public int diamondCurrent;
+    public int diamondTotal;
+    public Text textDiamond;
+
+
     #endregion
     //定義方法
     //語法:
@@ -62,6 +68,14 @@ public class player : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        //尋找所有指定標籤物件("指定標籤").數量
+        diamondTotal=GameObject.FindGameObjectsWithTag("鑽石").Length;
+        //更新介面
+        textDiamond.text = "鑽石:0/" + diamondTotal;
+    }
+
     //事件:在特定時間點已指定次數執行
     //更新事件:1秒執行約60次(60FPS)
     private void Update()
@@ -80,5 +94,20 @@ public class player : MonoBehaviour
             isGround = true;
         }
     }
+    //觸發事件:針對碰撞器有勾選 ISTrigger 的物件
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "鑽石")
+        {
+            aud.PlayOneShot(soundDiamond, 1.5f);  //音源 撥放一次音效(音效，音量)
+            Destroy(collision.gameObject);        //刪除(碰撞的物件)
+            diamondCurrent++;
+            textDiamond.text = "鑽石:" + diamondCurrent + "/" + diamondTotal;
+        }
+    }
+
 }
+
+
+
 
